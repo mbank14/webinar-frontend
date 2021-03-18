@@ -6,11 +6,15 @@ const posts = {
     posts: [],
     organizer: []
   },
+
+  getArticle: function (id) {
+    return axios.get(apiUrl + id);
+  },
+
   mutations: {
     SET_POSTS(state, data) {
       state.posts = data
       state.organizer = data
-
     }
 
   },
@@ -23,6 +27,14 @@ const posts = {
         })
         .catch(error => console.log(error))
     },
+    LoadPostsID({ commit }, id) {
+      axios
+        .get(`http://localhost:3000/api/event/${id}`)
+        .then(response => {
+          commit('SET_POSTS', response.data.id)
+        })
+        .catch(error => console.log(error))
+    }
 
   }
 }

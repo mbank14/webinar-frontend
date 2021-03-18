@@ -5,10 +5,21 @@
         <v-flex xs12 sm6 md4 lg3 v-for="post in posts" :key="post.id">
           <v-card flat class="text-xs-center ma-3">
             <v-img height="200px" :src="post.image"></v-img>
-            <v-card-title @click="colorClick(post.id)">{{
-              post.name
-            }}</v-card-title>
-            <v-card-title>{{ post.organizer.name }}</v-card-title>
+            <v-card-title
+              >{{ post.name }}
+              <v-row align="center" class="spacer" no-gutters>
+                <v-col md="auto">
+                  <v-avatar size="25px">
+                    <img :src="post.organizer.image" />
+                  </v-avatar>
+                </v-col>
+                <v-col md="auto">
+                  <v-avatar width="150px">
+                    <v-card-text>{{ post.organizer.name }}</v-card-text>
+                  </v-avatar>
+                </v-col>
+              </v-row>
+            </v-card-title>
 
             <v-card-actions>
               <v-btn color="orange lighten-2" text> Explore </v-btn>
@@ -26,10 +37,7 @@
               <div v-show="show == post.id">
                 <v-divider></v-divider>
 
-                <v-card-text
-                  :style="changeColor == post.id ? `color:red` : `color:black`"
-                  >{{ post.description }}</v-card-text
-                >
+                <v-card-text>{{ post.description }}</v-card-text>
                 <v-card-text>Kuota : {{ post.quota }}</v-card-text>
               </div>
             </v-expand-transition>
@@ -61,13 +69,6 @@ export default {
         this.show = null;
       } else {
         this.show = id;
-      }
-    },
-    colorClick(id) {
-      if (this.changeColor == id) {
-        this.changeColor = null;
-      } else {
-        this.changeColor = id;
       }
     },
   },
